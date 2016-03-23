@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import java.lang.StringBuffer;
 
 public class Untils {
@@ -51,9 +52,10 @@ public class Untils {
 	}
 	public static void drawString(Canvas canvas, String s, int x, int y, int cl, float size, int align)
 	{
-		Paint myPaint = new Paint();		
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);		
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -64,9 +66,10 @@ public class Untils {
 	}
 	public static void drawString(Canvas canvas, String s, float x, float y, int cl, float size, int align)
 	{
-		Paint myPaint = new Paint();
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -77,9 +80,10 @@ public class Untils {
 	}
 	public static void drawPage(Canvas canvas, String s, int x, int y, int cl, float size, int linespace, int align)
 	{
-		Paint myPaint = new Paint();
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -99,9 +103,10 @@ public class Untils {
 	}
 	public static void drawPage(Canvas canvas, String s, float x, float y, int cl, float size, int linespace, int align)
 	{
-		Paint myPaint = new Paint();
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -121,8 +126,9 @@ public class Untils {
 	}
 	public static String wrapText(String s, float w, float size)
 	{
-		Paint myPaint = new Paint();
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		StringBuffer sbf = new StringBuffer(s);
 		int start = 0, last = 0;
 		for(int i = 0; i < sbf.length(); i++)
@@ -145,8 +151,9 @@ public class Untils {
 	}
 	public static String wrapText(String s, float w, int size)
 	{
-		Paint myPaint = new Paint();
+		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setTextSize(size);
+		myPaint.setStyle(Paint.Style.STROKE);
 		StringBuffer sbf = new StringBuffer(s);
 		int start = 0, last = 0;
 		for(int i = 0; i < sbf.length(); i++)
@@ -178,5 +185,11 @@ public class Untils {
 			}
 		}
 		return count;
+	}
+	public static void sleep(int time)
+	{
+		try {
+			Thread.sleep(time);
+		} catch(Exception ec){}
 	}
 }
