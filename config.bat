@@ -2,7 +2,7 @@ echo *** config var and path ***
 
 set PRJ_DIR=%~dp0
 
-set JAVA_HOME=C:\DevTools\jdk1.6.0
+set JAVA_HOME=D:\Devtools\jdk1.7.0_79
 set PRJ_NAME=JSDLibs
 set VERSION=100
 
