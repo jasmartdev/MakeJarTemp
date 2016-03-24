@@ -117,7 +117,7 @@ public class mySprites {
 			return new Rect(sourceRect);
 	}
 	public Rect getSourceRect() {
-		return sourceRect;
+		return new Rect(sourceRect);
 	}
 	public void setSourceRect(Rect sourceRect) {
 		this.sourceRect = sourceRect;

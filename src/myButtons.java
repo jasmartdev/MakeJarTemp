@@ -143,7 +143,7 @@ public class myButtons {
 		return new Rect(curRect);
 	}
 	public Rect getSourceRect() {
-		return sourceRect;
+		return new Rect(sourceRect);
 	}
 	public void setSourceRect(Rect sourceRect) {
 		this.sourceRect = sourceRect;
