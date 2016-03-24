@@ -101,6 +101,26 @@ public class myButtons {
 		this.btnHeight = bitmap.getHeight();
 		sourceRect = new Rect(0, 0, btnWidth, btnHeight);
 		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
+		if((align & Align.HCENTER) != 0)
+		{
+			curRect.left -= getWidth()/2;
+			curRect.right -= getWidth()/2;
+		}
+		else if((align & Align.RIGHT) != 0)
+		{
+			curRect.left -= getWidth();
+			curRect.right -= getWidth();
+		}
+		if((align & Align.VCENTER) != 0)
+		{
+			curRect.top -= getHeight()/2;
+			curRect.bottom -= getHeight()/2;
+		}
+		else if((align & Align.BOTTOM) != 0)
+		{
+			curRect.top -= getHeight();
+			curRect.bottom -= getHeight();
+		}
 	}
 	
 	public interface buttonState {
@@ -120,28 +140,7 @@ public class myButtons {
 		this.bitmap_touched = bitmap_touched;
 	}
 	public Rect getRect() {
-		Rect r = new Rect(curRect);
-		if((align & Align.HCENTER) != 0)
-		{
-			r.left -= getWidth()/2;
-			r.right -= getWidth()/2;
-		}
-		else if((align & Align.RIGHT) != 0)
-		{
-			r.left -= getWidth();
-			r.right -= getWidth();
-		}
-		if((align & Align.VCENTER) != 0)
-		{
-			r.top -= getHeight()/2;
-			r.bottom -= getHeight()/2;
-		}
-		else if((align & Align.BOTTOM) != 0)
-		{
-			r.top -= getHeight();
-			r.bottom -= getHeight();
-		}
-		return r;
+		return new Rect(curRect);
 	}
 	public Rect getSourceRect() {
 		return sourceRect;
@@ -231,6 +230,26 @@ public class myButtons {
 		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
 		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
 		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
+		if((align & Align.HCENTER) != 0)
+		{
+			curRect.left -= getWidth()/2;
+			curRect.right -= getWidth()/2;
+		}
+		else if((align & Align.RIGHT) != 0)
+		{
+			curRect.left -= getWidth();
+			curRect.right -= getWidth();
+		}
+		if((align & Align.VCENTER) != 0)
+		{
+			curRect.top -= getHeight()/2;
+			curRect.bottom -= getHeight()/2;
+		}
+		else if((align & Align.BOTTOM) != 0)
+		{
+			curRect.top -= getHeight();
+			curRect.bottom -= getHeight();
+		}
 	}
 	public void Scale(float s)
 	{
@@ -242,6 +261,26 @@ public class myButtons {
 		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
 		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
 		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
+		if((align & Align.HCENTER) != 0)
+		{
+			curRect.left -= getWidth()/2;
+			curRect.right -= getWidth()/2;
+		}
+		else if((align & Align.RIGHT) != 0)
+		{
+			curRect.left -= getWidth();
+			curRect.right -= getWidth();
+		}
+		if((align & Align.VCENTER) != 0)
+		{
+			curRect.top -= getHeight()/2;
+			curRect.bottom -= getHeight()/2;
+		}
+		else if((align & Align.BOTTOM) != 0)
+		{
+			curRect.top -= getHeight();
+			curRect.bottom -= getHeight();
+		}
 	}
 	public void UnScale()
 	{
@@ -251,6 +290,26 @@ public class myButtons {
 		this.btnWidth = bitmap.getWidth();
 		this.btnHeight = bitmap.getHeight();
 		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
+		if((align & Align.HCENTER) != 0)
+		{
+			curRect.left -= getWidth()/2;
+			curRect.right -= getWidth()/2;
+		}
+		else if((align & Align.RIGHT) != 0)
+		{
+			curRect.left -= getWidth();
+			curRect.right -= getWidth();
+		}
+		if((align & Align.VCENTER) != 0)
+		{
+			curRect.top -= getHeight()/2;
+			curRect.bottom -= getHeight()/2;
+		}
+		else if((align & Align.BOTTOM) != 0)
+		{
+			curRect.top -= getHeight();
+			curRect.bottom -= getHeight();
+		}
 	}
 	
 	public int getWidth() {

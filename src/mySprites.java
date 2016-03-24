@@ -112,9 +112,9 @@ public class mySprites {
 	}
 	public Rect getRect() {
 		if(useScale)
-			return curRect;
+			return new Rect(curRect);
 		else
-			return sourceRect;
+			return new Rect(sourceRect);
 	}
 	public Rect getSourceRect() {
 		return sourceRect;
