@@ -24,8 +24,8 @@ public class myButtons {
 	private Rect curRect;
 	private int btnWidth;
 	private int btnHeight;	
-	private float x;
-	private float y;
+	private int x;
+	private int y;
 	private int align;
 	private int btnState;
 	private boolean btnActive;
@@ -37,22 +37,6 @@ public class myButtons {
 	private int textAlign;
 	private int textColor;
 	private int textSize;
-	
-	public myButtons(int dataID, int dataID2, int id, float x, float y, int align, String text, int textColor, int textSize, int textAlign) {
-		this.dataID = dataID;
-		this.dataID2 = dataID2;
-		this.x = x;
-		this.y = y;
-		this.align = align;
-		this.btnID = id;
-		btnState = buttonState.UNTOUCH;
-		btnActive = false;
-		useScale = false;
-		this.text = new String(text);
-		this.textColor = textColor;
-		this.textSize = textSize;
-		this.textAlign = textAlign;
-	}
 	
 	public myButtons(int dataID, int dataID2, int id, int x, int y, int align, String text, int textColor, int textSize, int textAlign) {
 		this.dataID = dataID;
@@ -69,23 +53,7 @@ public class myButtons {
 		this.textSize = textSize;
 		this.textAlign = textAlign;
 	}
-	
-	public myButtons(int dataID, int dataID2, int id, float x, float y, int align) {
-		this.dataID = dataID;
-		this.dataID2 = dataID2;
-		this.x = x;
-		this.y = y;
-		this.align = align;
-		this.btnID = id;
-		btnState = buttonState.UNTOUCH;
-		btnActive = false;
-		useScale = false;
-		this.text = null;
-		this.textColor = 0xff000000;
-		this.textSize = 14;
-		this.textAlign = Align.CENTER;
-	}
-	
+
 	public myButtons(int dataID, int dataID2, int id, int x, int y, int align) {
 		this.dataID = dataID;
 		this.dataID2 = dataID2;
@@ -132,7 +100,7 @@ public class myButtons {
 		this.btnWidth = bitmap.getWidth();
 		this.btnHeight = bitmap.getHeight();
 		sourceRect = new Rect(0, 0, btnWidth, btnHeight);
-		curRect = new Rect((int)x, (int)y, (int)(x + btnWidth), (int)(y + btnHeight));
+		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
 	}
 	
 	public interface buttonState {
@@ -217,16 +185,16 @@ public class myButtons {
 	public int getCenterY() {
 		return getRect().centerY();
 	}
-	public float getX() {
+	public int getX() {
 		return x;
 	}
-	public void setX(float x) {
+	public void setX(int x) {
 		this.x = x;
 	}
-	public float getY() {
+	public int getY() {
 		return y;
 	}
-	public void setY(float y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 	public String getText() {
@@ -255,21 +223,25 @@ public class myButtons {
 	}
 	public void Scale(float scale_x, float scale_y)
 	{
+		if(scale_x == 1 && scale_y == 1)
+			return;
 		useScale = true;
 		this.scale_x = scale_x;
 		this.scale_y = scale_y;
 		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
 		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
-		curRect = new Rect((int)x, (int)y, (int)(x + btnWidth), (int)(y + btnHeight));
+		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
 	}
 	public void Scale(float s)
 	{
+		if(s == 1)
+			return;
 		useScale = true;
 		scale_x = s;
 		scale_y = s;
 		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
 		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
-		curRect = new Rect((int)x, (int)y, (int)(x + btnWidth), (int)(y + btnHeight));
+		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
 	}
 	public void UnScale()
 	{
@@ -278,7 +250,7 @@ public class myButtons {
 		scale_y = 1;
 		this.btnWidth = bitmap.getWidth();
 		this.btnHeight = bitmap.getHeight();
-		curRect = new Rect((int)x, (int)y, (int)(x + btnWidth), (int)(y + btnHeight));
+		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
 	}
 	
 	public int getWidth() {
@@ -293,7 +265,7 @@ public class myButtons {
 	public void setHeight(int btnHeight) {
 		this.btnHeight = btnHeight;
 	}
-	public void update(boolean touch, float x, float y) {
+	public void update(boolean touch, int x, int y) {
 		if(touch)
 		{
 			if(Untils.isTouchInRect(x, y, getRect()))
@@ -322,7 +294,7 @@ public class myButtons {
 			canvas.drawBitmap(bitmap_touched, sourceRect, getRect(), null);
 		if(text != null)
 		{
-			Untils.drawString(canvas, text, (int)(getCenterX()), (int)(getCenterY()), textColor, textSize, textAlign);
+			Untils.drawString(canvas, text, getCenterX(), getCenterY(), textColor, textSize, textAlign);
 		}
 		if(Configs.debug_Rect)
 			Untils.drawRect(canvas, getRect());

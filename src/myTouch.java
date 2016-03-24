@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 
 public class myTouch {
 
-	public static float x;
-	public static float y;
+	public static int x;
+	public static int y;
 	public static float x_scale;
 	public static float y_scale;
 	public static int btnState;
@@ -27,7 +27,7 @@ public class myTouch {
 		x_scale = 1;
 		y_scale = 1;
 	}
-		
+
 	public myTouch(float x_scale, float y_scale) {
 		this.x = -1;
 		this.y = -1;
@@ -39,8 +39,8 @@ public class myTouch {
 	
 	public boolean onTouchEvent(MotionEvent event) {
 
-		x = (event.getX())*x_scale;
-		y = (event.getY())*y_scale;
+		x = (int)(event.getX()*x_scale);
+		y = (int)(event.getY()*y_scale);
 		Untils.Dbg("x_scale"+x_scale+"y_scale"+y_scale+"x"+x+"y"+y+"event.getX()"+event.getX()+"event.getY()"+event.getY());
 		int action = event.getAction();
 		switch(action){
@@ -76,16 +76,16 @@ public class myTouch {
 	public void setState(int state) {
 		this.btnState = state;
 	}
-	public float getX() {
+	public int getX() {
 		return x;
 	}
-	public void setX(float x) {
-		this.x = x*x_scale;
+	public void setX(int x) {
+		this.x = (int)(x*x_scale);
 	}
-	public float getY() {
+	public int getY() {
 		return y;
 	}
-	public void setY(float y) {
-		this.y = y*y_scale;
+	public void setY(int y) {
+		this.y = (int)(y*y_scale);
 	}
 }

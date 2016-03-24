@@ -40,10 +40,10 @@ public class mySprites {
 	private float scale_x;
 	private float scale_y;
 	
-	public mySprites(int dataID, float x, float y, int frameCount, int fps) {
+	public mySprites(int dataID, int x, int y, int frameCount, int fps) {
 		this.dataID = dataID;
-		this.x = (int)x;
-		this.y = (int)y;
+		this.x = x;
+		this.y = y;
 		currentFrame = 0;
 		frameNr = frameCount;
 		framePeriod = 1000 / fps;
@@ -52,10 +52,10 @@ public class mySprites {
 		useScale = false;
 	}
 	
-	public mySprites(int dataID, float x, float y, int frameCount) {
+	public mySprites(int dataID, int x, int y, int frameCount) {
 		this.dataID = dataID;
-		this.x = (int)x;
-		this.y = (int)y;
+		this.x = x;
+		this.y = y;
 		currentFrame = 0;
 		frameNr = frameCount;
 		framePeriod = 1000 / 15;
@@ -64,10 +64,10 @@ public class mySprites {
 		useScale = false;
 	}
 	
-	public mySprites(int dataID, float x, float y) {
+	public mySprites(int dataID, int x, int y) {
 		this.dataID = dataID;
-		this.x = (int)x;
-		this.y = (int)y;
+		this.x = x;
+		this.y = y;
 		currentFrame = 0;
 		frameNr = 1;		
 		framePeriod = 1000 / 10;
@@ -187,6 +187,8 @@ public class mySprites {
 	}
 	public void Scale(float x, float y)
 	{
+		if(x == 1 && x == 1)
+			return;
 		useScale = true;
 		scale_x = x;
 		scale_y = y;
@@ -194,6 +196,8 @@ public class mySprites {
 	}
 	public void Scale(float s)
 	{
+		if(s == 1)
+			return;
 		useScale = true;
 		scale_x = s;
 		scale_y = s;
