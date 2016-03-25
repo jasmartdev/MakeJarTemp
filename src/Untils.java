@@ -52,7 +52,8 @@ public class Untils {
 		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);		
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
-		myPaint.setStyle(Paint.Style.STROKE);
+		myPaint.setAntiAlias(true);
+		myPaint.setStyle(Paint.Style.FILL);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -66,7 +67,8 @@ public class Untils {
 		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setColor(cl);
 		myPaint.setTextSize(size);
-		myPaint.setStyle(Paint.Style.STROKE);
+		myPaint.setAntiAlias(true);
+		myPaint.setStyle(Paint.Style.FILL);
 		if(align == Align.LEFT || align == Align.NONE)
 			myPaint.setTextAlign(Paint.Align.LEFT);
 		else if(align == Align.RIGHT)
@@ -88,7 +90,8 @@ public class Untils {
 	{
 		Paint myPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
 		myPaint.setTextSize(size);
-		myPaint.setStyle(Paint.Style.STROKE);
+		myPaint.setAntiAlias(true);
+		myPaint.setStyle(Paint.Style.FILL);
 		StringBuffer sbf = new StringBuffer(s);
 		int start = 0, last = 0;
 		for(int i = 0; i < sbf.length(); i++)
