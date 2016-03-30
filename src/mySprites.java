@@ -70,7 +70,7 @@ public class mySprites {
 		this.y = y;
 		currentFrame = 0;
 		frameNr = 1;		
-		framePeriod = 1000 / 10;
+		framePeriod = 1000 / 15;
 		frameTicker = 0l;
 		loop = -1;
 		useScale = false;
@@ -98,7 +98,9 @@ public class mySprites {
 	
 	public void Load(Context context)
 	{
-		this.bitmap = BitmapFactory.decodeResource(context.getResources(), dataID);
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.RGB_565;
+		this.bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
 		spriteWidth = this.bitmap.getWidth() / frameNr;
 		spriteHeight = this.bitmap.getHeight();
 		sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
