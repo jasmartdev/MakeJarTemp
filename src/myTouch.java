@@ -9,10 +9,13 @@ public class myTouch {
 
 	public static int x;
 	public static int y;
+	public static int last_x;
+	public static int last_y;
 	public static float x_scale;
 	public static float y_scale;
 	public static int btnState;
 	public static boolean istouch = false;
+	public static boolean isdrag = false;
 	
 	public interface touchState {
 		final static int UNTOUCH = 0;
@@ -24,6 +27,7 @@ public class myTouch {
 		this.y = -1;
 		btnState = touchState.UNTOUCH;
 		istouch = false;
+		isdrag = false;
 		x_scale = 1;
 		y_scale = 1;
 	}
@@ -33,6 +37,7 @@ public class myTouch {
 		this.y = -1;
 		btnState = touchState.UNTOUCH;
 		istouch = false;
+		isdrag = false;
 		this.x_scale = x_scale;
 		this.y_scale = y_scale;
 	}
@@ -41,17 +46,23 @@ public class myTouch {
 
 		x = (int)(event.getX()*x_scale);
 		y = (int)(event.getY()*y_scale);
-		Untils.Dbg("x_scale"+x_scale+"y_scale"+y_scale+"x"+x+"y"+y+"event.getX()"+event.getX()+"event.getY()"+event.getY());
 		int action = event.getAction();
 		switch(action){
 			case MotionEvent.ACTION_DOWN:
+				last_x = x;
+				last_y = y;
+				istouch = true;
+				isdrag = false;
+				break;
 			case MotionEvent.ACTION_MOVE:
 				istouch = true;
+				isdrag = true;
 				break;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
 			case MotionEvent.ACTION_OUTSIDE:
 				istouch = false;
+				isdrag = false;
 				break;
 			default:
 		}
@@ -63,6 +74,13 @@ public class myTouch {
 		y = -1;
 		btnState = touchState.UNTOUCH;
 		istouch = false;
+		isdrag = false;
+	}
+	public boolean getDrag() {
+		return isdrag;
+	}
+	public int getDragDeltaX() {
+		return (int)((x - last_x)*x_scale);
 	}
 	public boolean getTouch() {
 		return istouch;
