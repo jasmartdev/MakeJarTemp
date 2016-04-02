@@ -1,12 +1,12 @@
 /**
  * 
  */
-package Untils;
+package jasmartdev.untils;
 
 import android.media.MediaPlayer;
 import android.content.Context;
 
-import Untils.Configs;
+import jasmartdev.untils.Configs;
 
 public class mySound {
 
