@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jasmartdev.untils;
+package Untils;
 
 public interface Align {
 	final static int NONE = 0x0;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jasmartdev.untils;
+package Untils;
 
 import android.view.MotionEvent;
 
