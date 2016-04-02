@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Untils;
+package jasmartdev.untils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +11,8 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.content.Context;
 
-import Untils.Untils;
-import Untils.Configs;
+import jasmartdev.untils.Untils;
+import jasmartdev.untils.Configs;
 
 /**
  * @author impaler

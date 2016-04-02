@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Untils;
+package jasmartdev.untils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +11,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.content.Context;
 
-import Untils.Align;
+import jasmartdev.untils.Align;
 
 
 public class myButtons {

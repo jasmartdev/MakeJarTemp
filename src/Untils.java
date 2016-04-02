@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Untils;
+package jasmartdev.untils;
 
 import android.graphics.Rect;
 import android.graphics.Bitmap;

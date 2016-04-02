@@ -1,16 +1,16 @@
 /**
  * 
  */
-package Untils;
+package jasmartdev.untils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.content.Context;
 
-import Untils.Untils;
-import Untils.myButtons;
-import Untils.mySprites;
-import Untils.Align;
+import jasmartdev.untils.Untils;
+import jasmartdev.untils.myButtons;
+import jasmartdev.untils.mySprites;
+import jasmartdev.untils.Align;
 
 public class myDialog {
 	
