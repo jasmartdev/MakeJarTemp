@@ -69,14 +69,36 @@ public class Untils {
 		myPaint.setTextSize(size);
 		myPaint.setAntiAlias(true);
 		myPaint.setStyle(Paint.Style.FILL);
-		if(align == Align.LEFT || align == Align.NONE)
+		if((align & Align.LEFT) != 0)
+		{
 			myPaint.setTextAlign(Paint.Align.LEFT);
-		else if(align == Align.RIGHT)
+		}
+		else if((align & Align.RIGHT) != 0)
+		{
 			myPaint.setTextAlign(Paint.Align.RIGHT);
-		else if(align == Align.CENTER)
+		}
+		else if((align & Align.HCENTER) != 0)
+		{
 			myPaint.setTextAlign(Paint.Align.CENTER);
+		}
+		else
+		{
+			myPaint.setTextAlign(Paint.Align.LEFT);
+		}
 		int countline = countLine(s);
-		int dy = -(countline*(size+linespace)/2);
+		int dy;
+		if((align & Align.BOTTOM) != 0)
+		{
+			dy = -countline*(size+linespace);
+		}
+		else if((align & Align.VCENTER) != 0)
+		{
+			dy = -(countline*(size+linespace)/2);
+		}
+		else
+		{
+			dy = 0;
+		}
 		for(String line: s.split("\n")){			
 			canvas.drawText(line, (int)(x), (int)(y + dy), myPaint);
 			dy+=(size+linespace);

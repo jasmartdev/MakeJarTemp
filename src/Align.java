@@ -11,5 +11,5 @@ public interface Align {
 	final static int TOP = 0x1<<3;
 	final static int BOTTOM = 0x1<<4;
 	final static int VCENTER = 0x1<<5;
-	final static int CENTER = 0x1<<6;
+	final static int CENTER = HCENTER | VCENTER;
 }
