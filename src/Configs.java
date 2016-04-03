@@ -1,10 +1,10 @@
-package Untils;
+package jasmartdev.untils;
 
 
 public class Configs {
 
-	final static boolean debug_Rect = true;
-	final static boolean debug_Sprite = false;
+	final static boolean debug_Rect = !true;
+	final static boolean debug_Sprite = !true;
 	
 	
 	final static boolean snd_Check_Isplaying = true;

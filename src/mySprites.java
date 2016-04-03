@@ -212,6 +212,11 @@ public class mySprites {
 		scale_y = 1;
 		curRect = new Rect(sourceRect);
 	}
+	public void reset()
+	{
+		resetFrame();
+		sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
+	}
 	public void update(long gameTime) {
 		if (gameTime > frameTicker + framePeriod) {
 			frameTicker = gameTime;
