@@ -36,9 +36,8 @@ public class mySprites {
 	private int dataID;
 	private int loop;
 	private Rect scaleRect;
-	private boolean useScale;
-	private float scale_x;
-	private float scale_y;
+	private boolean isCache;
+	private Context context;
 	
 	public mySprites(int dataID, int x, int y, int frameCount, int fps) {
 		this.dataID = dataID;
@@ -49,7 +48,7 @@ public class mySprites {
 		framePeriod = 1000 / fps;
 		frameTicker = 0l;
 		loop = -1;
-		useScale = false;
+		isCache = false;
 	}
 	
 	public mySprites(int dataID, int x, int y, int frameCount) {
@@ -61,7 +60,7 @@ public class mySprites {
 		framePeriod = 1000 / 15;
 		frameTicker = 0l;
 		loop = -1;
-		useScale = false;
+		isCache = false;
 	}
 	
 	public mySprites(int dataID, int x, int y) {
@@ -73,36 +72,24 @@ public class mySprites {
 		framePeriod = 1000 / 15;
 		frameTicker = 0l;
 		loop = -1;
-		useScale = false;
+		isCache = false;
 	}
-	
-	public mySprites(mySprites otherSprite)
+	public void Cache(boolean isCache)
 	{
-		this.bitmap = Bitmap.createBitmap(otherSprite.getBitmap());
-		this.spriteWidth = otherSprite.spriteWidth;
-		this.spriteHeight = otherSprite.spriteHeight;
-		this.sourceRect = new Rect(otherSprite.getSourceRect());
-		this.curRect = new Rect(otherSprite.getRect());
-		this.dataID = otherSprite.dataID;
-		this.x = otherSprite.x;
-		this.y = otherSprite.y;
-		currentFrame = 0;
-		this.frameNr = otherSprite.frameNr;		
-		this.framePeriod = otherSprite.framePeriod;
-		this.frameTicker = otherSprite.frameTicker;
-		this.loop = otherSprite.loop;
-		this.useScale = otherSprite.useScale;
-		this.scale_x = otherSprite.scale_x;
-		this.scale_y = otherSprite.scale_y;
+		this.isCache = isCache;
 	}
-	
 	public void Load(Context context)
 	{
+		this.context = context;
 		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inPreferredConfig = Bitmap.Config.RGB_565;
-		this.bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
 		spriteWidth = this.bitmap.getWidth() / frameNr;
 		spriteHeight = this.bitmap.getHeight();
+		if(!isCache)
+		{
+			bitmap = null;
+		}
 		sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
 	}
 	
@@ -113,10 +100,7 @@ public class mySprites {
 		this.bitmap = bitmap;
 	}
 	public Rect getRect() {
-		if(useScale)
-			return new Rect(curRect);
-		else
-			return new Rect(sourceRect);
+		return new Rect(sourceRect);
 	}
 	public Rect getSourceRect() {
 		return new Rect(sourceRect);
@@ -143,18 +127,12 @@ public class mySprites {
 		this.framePeriod = framePeriod;
 	}
 	public int getSpriteWidth() {
-		if(useScale)
-			return (int)(spriteWidth*scale_x);
-		else
-			return spriteWidth;
+		return spriteWidth;
 	}
 	public void setSpriteWidth(int spriteWidth) {
 		this.spriteWidth = spriteWidth;
 	}
 	public int getSpriteHeight() {
-	if(useScale)
-		return (int)(spriteHeight*scale_y);
-	else
 		return spriteHeight;
 	}
 	public void setSpriteHeight(int spriteHeight) {
@@ -187,31 +165,6 @@ public class mySprites {
 	{
 		currentFrame = 0;
 	}
-	public void Scale(float x, float y)
-	{
-		if(x == 1 && x == 1)
-			return;
-		useScale = true;
-		scale_x = x;
-		scale_y = y;
-		curRect = new Rect(0, 0, (int)(spriteWidth*scale_x), (int)(spriteHeight*scale_y));
-	}
-	public void Scale(float s)
-	{
-		if(s == 1)
-			return;
-		useScale = true;
-		scale_x = s;
-		scale_y = s;
-		curRect = new Rect(0, 0, (int)(spriteWidth*scale_x), (int)(spriteHeight*scale_y));
-	}
-	public void UnScale()
-	{
-		useScale = false;
-		scale_x = 1;
-		scale_y = 1;
-		curRect = new Rect(sourceRect);
-	}
 	public void reset()
 	{
 		resetFrame();
@@ -230,11 +183,6 @@ public class mySprites {
 		}
 		this.sourceRect.left = currentFrame * spriteWidth;
 		this.sourceRect.right = this.sourceRect.left + spriteWidth;
-		if(useScale)
-		{
-			this.curRect.left = this.sourceRect.left;
-			this.curRect.right = this.sourceRect.left + (int)(spriteWidth*scale_x);
-		}
 	}
 	
 	public void update() {
@@ -243,7 +191,17 @@ public class mySprites {
 	public void draw(Canvas canvas) {
 		Rect destRect;
 		destRect = new Rect(getX(), getY(), getX() + this.getSpriteWidth(), getY() + this.getSpriteHeight());
+		if(bitmap == null)
+		{
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
+		}
 		canvas.drawBitmap(bitmap, sourceRect, destRect, null);
+		if(!isCache)
+		{
+			bitmap = null;
+		}
 		if(Configs.debug_Rect)
 			Untils.drawRect(canvas, this.getRect());
 		if(Configs.debug_Sprite)
@@ -256,7 +214,17 @@ public class mySprites {
 	public void draw(Canvas canvas, int x, int y) {
 		Rect destRect;
 		destRect = new Rect(getX() + x, getY() + y, getX() + x + this.getSpriteWidth(), getY() + y + this.getSpriteHeight());
+		if(bitmap == null)
+		{
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
+		}
 		canvas.drawBitmap(bitmap, sourceRect, destRect, null);
+		if(!isCache)
+		{
+			bitmap = null;
+		}
 		if(Configs.debug_Rect)
 		{
 			Rect r = new Rect(getX() + x, getY() + y, getX() + x + this.getSpriteWidth(), getY() + y + this.getSpriteHeight());

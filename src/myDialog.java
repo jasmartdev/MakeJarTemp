@@ -15,7 +15,6 @@ import jasmartdev.untils.Align;
 public class myDialog {
 	
 	int x, y, w, h;
-	float scale_x, scale_y;
 	int bg, yes_up, yes_down, no_up, no_down;
 	mySprites spr_bg;
 	myButtons btn_yes, btn_no;
@@ -25,12 +24,10 @@ public class myDialog {
 	public static boolean isActive;
 	int id;
 	
-	public myDialog(int bg, int yes_up, int yes_down, int no_up, int no_down, String txt_yes, String txt_no, int textSize, int x, int y, float scale_x, float scale_y)
+	public myDialog(int bg, int yes_up, int yes_down, int no_up, int no_down, String txt_yes, String txt_no, int textSize, int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.scale_x = scale_x;
-		this.scale_y = scale_y;
 		this.bg = bg;
 		this.yes_up = yes_up;
 		this.yes_down = yes_down;
@@ -46,8 +43,6 @@ public class myDialog {
 	{
 		spr_bg = new mySprites(bg, x, y);
 		spr_bg.Load(context);
-		if(scale_x != 1 || scale_y != 1)
-			spr_bg.Scale(scale_x, scale_y);
 		w = spr_bg.getSpriteWidth();
 		h = spr_bg.getSpriteHeight();
 		btn_yes = new myButtons(yes_up, yes_down, id_yes, x - w/8, y + h - 5, Align.RIGHT | Align.BOTTOM, txt_yes, Color.WHITE, textSize, Align.CENTER);

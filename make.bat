@@ -22,4 +22,5 @@ rmdir tmp /s /q
 echo *************** make jar ***************
 "%JAVA_HOME%\bin\jar.exe" cfM "%PRJ_NAME%_%VERSION%.jar" -C "%COMP_PATH%" .
 copy %PRJ_NAME%_%VERSION%.jar %RELEASE_PATH%\
+copy /y %PRJ_NAME%_%VERSION%.jar D:\Projects\Android2016\AndroidGameCanvas\trunk\libs\
 del %PRJ_NAME%_%VERSION%.jar

@@ -30,13 +30,12 @@ public class myButtons {
 	private int btnState;
 	private boolean btnActive;
 	private int btnID;
-	private boolean useScale;
-	private float scale_x;
-	private float scale_y;
 	private String text;
 	private int textAlign;
 	private int textColor;
 	private int textSize;
+	private boolean isCache;
+	private Context context;
 	
 	public myButtons(int dataID, int dataID2, int id, int x, int y, int align, String text, int textColor, int textSize, int textAlign) {
 		this.dataID = dataID;
@@ -47,7 +46,7 @@ public class myButtons {
 		this.btnID = id;
 		btnState = buttonState.UNTOUCH;
 		btnActive = false;
-		useScale = false;
+		isCache = false;
 		this.text = new String(text);
 		this.textColor = textColor;
 		this.textSize = textSize;
@@ -63,43 +62,31 @@ public class myButtons {
 		this.btnID = id;
 		btnState = buttonState.UNTOUCH;
 		btnActive = false;
-		useScale = false;
+		isCache = false;
 		this.text = null;
 		this.textColor = 0xff000000;
 		this.textSize = 14;
 		this.textAlign = Align.CENTER;
 	}
-	
-	public myButtons(myButtons otherButton)
+	public void Cache(boolean isCache)
 	{
-		this.dataID = otherButton.dataID;
-		this.dataID2 = otherButton.dataID2;
-		this.bitmap = Bitmap.createBitmap(otherButton.bitmap);
-		this.bitmap_touched = Bitmap.createBitmap(otherButton.bitmap_touched);
-		this.x = otherButton.x;
-		this.y = otherButton.y;
-		this.btnWidth = otherButton.btnWidth;
-		this.btnHeight = otherButton.btnHeight;
-		this.sourceRect = new Rect(otherButton.getSourceRect());
-		this.curRect = new Rect(otherButton.getRect());
-		this.align = otherButton.align;
-		this.btnID = otherButton.btnID;
-		btnState = buttonState.UNTOUCH;
-		btnActive = false;
-		this.useScale = otherButton.useScale;
-		this.text = new String(otherButton.getText());
-		this.textColor = otherButton.textColor;
-		this.textSize = otherButton.textSize;
-		this.textAlign = otherButton.textAlign;
+		this.isCache = isCache;
 	}
-	
 	public void Load(Context context)
 	{
-		this.bitmap = BitmapFactory.decodeResource(context.getResources(), dataID);
-		this.bitmap_touched = BitmapFactory.decodeResource(context.getResources(), dataID2);
-		this.btnWidth = bitmap.getWidth();
-		this.btnHeight = bitmap.getHeight();
+		this.context = context;
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
+		bitmap_touched = BitmapFactory.decodeResource(context.getResources(), dataID2, options);
+		btnWidth = bitmap.getWidth();
+		btnHeight = bitmap.getHeight();
 		sourceRect = new Rect(0, 0, btnWidth, btnHeight);
+		if(!isCache)
+		{
+			bitmap = null;
+			bitmap_touched = null;
+		}
 		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
 		if((align & Align.HCENTER) != 0)
 		{
@@ -220,98 +207,6 @@ public class myButtons {
 	public void setTextAlign(int textAlign) {
 		this.textAlign = textAlign;
 	}
-	public void Scale(float scale_x, float scale_y)
-	{
-		if(scale_x == 1 && scale_y == 1)
-			return;
-		useScale = true;
-		this.scale_x = scale_x;
-		this.scale_y = scale_y;
-		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
-		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
-		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
-		if((align & Align.HCENTER) != 0)
-		{
-			curRect.left -= getWidth()/2;
-			curRect.right -= getWidth()/2;
-		}
-		else if((align & Align.RIGHT) != 0)
-		{
-			curRect.left -= getWidth();
-			curRect.right -= getWidth();
-		}
-		if((align & Align.VCENTER) != 0)
-		{
-			curRect.top -= getHeight()/2;
-			curRect.bottom -= getHeight()/2;
-		}
-		else if((align & Align.BOTTOM) != 0)
-		{
-			curRect.top -= getHeight();
-			curRect.bottom -= getHeight();
-		}
-	}
-	public void Scale(float s)
-	{
-		if(s == 1)
-			return;
-		useScale = true;
-		scale_x = s;
-		scale_y = s;
-		this.btnWidth = (int)(bitmap.getWidth()*scale_x);
-		this.btnHeight = (int)(bitmap.getHeight()*scale_y);
-		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
-		if((align & Align.HCENTER) != 0)
-		{
-			curRect.left -= getWidth()/2;
-			curRect.right -= getWidth()/2;
-		}
-		else if((align & Align.RIGHT) != 0)
-		{
-			curRect.left -= getWidth();
-			curRect.right -= getWidth();
-		}
-		if((align & Align.VCENTER) != 0)
-		{
-			curRect.top -= getHeight()/2;
-			curRect.bottom -= getHeight()/2;
-		}
-		else if((align & Align.BOTTOM) != 0)
-		{
-			curRect.top -= getHeight();
-			curRect.bottom -= getHeight();
-		}
-	}
-	public void UnScale()
-	{
-		useScale = false;
-		scale_x = 1;
-		scale_y = 1;
-		this.btnWidth = bitmap.getWidth();
-		this.btnHeight = bitmap.getHeight();
-		curRect = new Rect(x, y, x + btnWidth, y + btnHeight);
-		if((align & Align.HCENTER) != 0)
-		{
-			curRect.left -= getWidth()/2;
-			curRect.right -= getWidth()/2;
-		}
-		else if((align & Align.RIGHT) != 0)
-		{
-			curRect.left -= getWidth();
-			curRect.right -= getWidth();
-		}
-		if((align & Align.VCENTER) != 0)
-		{
-			curRect.top -= getHeight()/2;
-			curRect.bottom -= getHeight()/2;
-		}
-		else if((align & Align.BOTTOM) != 0)
-		{
-			curRect.top -= getHeight();
-			curRect.bottom -= getHeight();
-		}
-	}
-	
 	public int getWidth() {
 		return btnWidth;
 	}
@@ -348,9 +243,33 @@ public class myButtons {
 	
 	public void draw(Canvas canvas) {
 		if(getState() == buttonState.UNTOUCH)
+		{
+			if(bitmap == null)
+			{
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+				bitmap = BitmapFactory.decodeResource(context.getResources(), dataID, options);
+			}
 			canvas.drawBitmap(bitmap, sourceRect, getRect(), null);
+			if(!isCache)
+			{
+				bitmap = null;
+			}
+		}
 		else
+		{
+			if(bitmap_touched == null)
+			{
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+				bitmap_touched = BitmapFactory.decodeResource(context.getResources(), dataID2, options);
+			}
 			canvas.drawBitmap(bitmap_touched, sourceRect, getRect(), null);
+			if(!isCache)
+			{
+				bitmap_touched = null;
+			}
+		}
 		if(text != null)
 		{
 			Untils.drawString(canvas, text, getCenterX(), getCenterY(), textColor, textSize, textAlign);
